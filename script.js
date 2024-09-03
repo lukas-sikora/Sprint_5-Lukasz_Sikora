@@ -43,32 +43,31 @@ const nicknameGenerator = people.map((person) => {
       .reverse()
       .join("");
 
-    const secondPartNickname = lastName.slice(0, 3).toLowerCase();
-    const secondChangedPartNickname =
-      secondPartNickname[2] + secondPartNickname[1] + secondPartNickname[0];
+    const secondPartNickname = lastName
+      .slice(0, 3)
+      .toLowerCase()
+      .split("")
+      .reverse()
+      .join("");
 
-    const nickName =
-      firstPartNickname.charAt(0).toUpperCase() +
-      firstPartNickname.slice(1) +
-      secondChangedPartNickname;
+    const nickName = `${firstPartNickname
+      .charAt(0)
+      .toUpperCase()}${firstPartNickname.slice(1)}${secondPartNickname}`;
 
     return {
       ...person,
-      nickName: nickName,
+      nickName,
     };
   } else {
-    return { ...person };
+    return person;
   }
 });
-
-console.log("ZADANIE 1",nicknameGenerator);
+console.log("ZADANIE 1", nicknameGenerator);
 
 // ZADANIE 2
 
 const addAge = nicknameGenerator
-  .filter((person) => {
-    return person.nickName;
-  })
+  .filter(person => person.nickName)
   .map((person, index) => {
     const sumNamesLength =
       person.firstName.trim().length + person.lastName.trim().length;
@@ -95,7 +94,7 @@ const countingLettersAnalyse = addAge.map((person) => {
   const textForVerification = (firstName + lastName + nickName)
     .toLowerCase()
     .split("");
- 
+
   const countedLetters = {};
   textForVerification.forEach((letter) => {
     countedLetters[letter] = (countedLetters[letter] || 0) + 1;
@@ -119,4 +118,4 @@ const countingLettersAnalyse = addAge.map((person) => {
   };
 });
 
-console.log("ZADANIE 3",countingLettersAnalyse);
+console.log("ZADANIE 3", countingLettersAnalyse);
